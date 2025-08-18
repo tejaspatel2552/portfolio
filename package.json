@@ -1,6 +1,6 @@
 {
   "name": "tejas-portfolio",
-  "homepage": "https://tejaspatel.github.io/portfolio",
+  "homepage": "https://tejaspatel2552.github.io/portfolio/",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -34,5 +34,8 @@
   },
   "devDependencies": {
     "gh-pages": "^6.3.0"
+  },
+  "engines": {
+    "node": "^18.x"
   }
 }
