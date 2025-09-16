@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useRef  } from "react";
 import Turnstile from "react-turnstile";
 import { motion } from "framer-motion";
 import {
@@ -11,6 +11,8 @@ import {
   ListCollapse,
   Layers,
   LineChart,
+  BrainCircuit,
+  DatabaseZap,
   MousePointerClick,
   Rocket,
   Sparkles,
@@ -35,87 +37,127 @@ import {
 const SERVICES = [
   {
     id: 1,
-    title: "Performance Marketing",
+    title: "Website Design & Development",
     icon: Rocket,
     bullets: [
-      "Full-funnel strategy",
-      "ROAS-first execution",
-      "A/B testing framework",
+      "Responsive websites",
+      "Custom UI/UX design",
+      "SEO-friendly structure",
     ],
     details:
-      "Scale profitably with a testing roadmap, creative sprints, and channel mix across Meta, Google, and YouTube.",
+      "Modern and scalable websites built with clean code, responsive layouts, and optimized for performance and conversions.",
   },
   {
     id: 2,
-    title: "SEO & Content",
+    title: "SEO & Content Marketing",
     icon: Search,
-    bullets: ["Technical audits", "Topical maps", "EEAT content"],
+    bullets: ["On-page & Off-page SEO", "Keyword strategy", "Content planning"],
     details:
-      "Grow sustainable traffic via technical clean-up, keyword clustering, and content that ranks and converts.",
+      "Boost your visibility with SEO strategies, keyword clustering, and content marketing that drives organic traffic and engagement.",
   },
   {
     id: 3,
-    title: "Analytics & CRO",
-    icon: BarChart3,
-    bullets: ["GA4 + GTM setup", "Funnel tracking", "UX experiments"],
+    title: "Social Media Creation & Management",
+    icon: Megaphone,
+    bullets: ["Creative posts", "Content calendars", "Engagement growth"],
     details:
-      "Measure what matters with GA4, server-side events and on-site experiments to lift CVR without extra spend.",
+      "End-to-end social media management using Canva designs, consistent branding, and strategic campaigns to grow audience and awareness.",
   },
   {
     id: 4,
-    title: "Lead Generation",
-    icon: MousePointerClick,
-    bullets: ["B2B funnels", "High-intent forms", "CRM hygiene"],
+    title: "Paid Marketing",
+    icon: BarChart3,
+    bullets: ["Google Ads", "Meta Ads", "A/B testing"],
     details:
-      "Pipeline-first approach: audience filters, high-intent offers, and CRM automation to qualify at scale.",
+      "ROI-driven paid ad campaigns across Google, Meta, and other platforms with continuous optimization and testing frameworks.",
   },
   {
     id: 5,
-    title: "Brand & Creative",
-    icon: Megaphone,
-    bullets: ["Ad concepts", "UGC direction", "Story frameworks"],
+    title: "Email & Lifecycles",
+    icon: Mail,
+    bullets: ["Email automation", "Segmentation", "High deliverability"],
     details:
-      "Thumb-stopping creative built on insights and angles that travel across ads, landing pages, and email.",
+      "Create impactful lifecycle email campaigns that onboard, engage, and retain customers with personalized automation flows.",
   },
   {
     id: 6,
-    title: "Email & Lifecycle",
-    icon: Mail,
-    bullets: ["Flows + campaigns", "Segmentation", "Deliverability"],
+    title: "Lead Generation & Brand",
+    icon: MousePointerClick,
+    bullets: ["Lead funnels", "CRM setup", "Brand visibility"],
     details:
-      "Lifecycle programs that onboard, activate, and retain customers with value-driven flows and nudges.",
+      "Pipeline-focused approach with high-converting lead generation strategies and brand building for long-term growth.",
   },
 ];
 
 const PROJECTS = [
   {
     id: 1,
-    name: "Solarx – SEO Turnaround",
-    result: "+212% organic sessions in 5 months",
+    name: "ConfidoAi – Social Media Growth",
     summary:
-      "Fixed technical debt, built a topical map, and launched 32 new pages. Introduced internal linking and schema.",
+      "Managed brand presence and growth for AI-driven solutions company.",
+    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzenlect.383bebd7.png&w=3840&q=75",
+    modalDetails: [
+      "Planned and executed social media campaigns.",
+      "Designed creatives aligned with brand identity.",
+      "Boosted engagement and organic following.",
+      "Ran paid ads with measurable ROI."
+    ],
+    services: "Social Media Management",
+    companyName: "ConfidoAi",
+    websiteUrl: "https://scrido.com/",
+    country: "Ahmedabad"
   },
   {
     id: 2,
-    name: "WA Mitra – Paid Growth",
-    result: "3.1x blended ROAS, CAC -28%",
+    name: "ConfidoAi – Social Media Growth",
     summary:
-      "Iterated on ICP creatives, added advantage+ campaigns, and synced events server-side for signal quality.",
+      "Managed brand presence and growth for AI-driven solutions company.",
+    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FUsability.58d05f47.png&w=3840&q=75",
+    modalDetails: [
+      "Planned and executed social media campaigns.",
+      "Designed creatives aligned with brand identity.",
+      "Boosted engagement and organic following.",
+      "Ran paid ads with measurable ROI."
+    ],
+    services: "Social Media Management",
+    companyName: "ConfidoAi",
+    websiteUrl: "https://scrido.com/",
+    country: "Ahmedabad"
   },
   {
     id: 3,
-    name: "AGOLA – Prelaunch Hype",
-    result: "8,400 waitlist signups @ ₹13 CPL",
+    name: "ConfidoAi – Social Media Growth",
     summary:
-      "Built a landing funnel with clear value props, referral loop, and weekly tease emails to nurture demand.",
+      "Managed brand presence and growth for AI-driven solutions company.",
+    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FUsability.58d05f47.png&w=3840&q=75",
+    modalDetails: [
+      "Planned and executed social media campaigns.",
+      "Designed creatives aligned with brand identity.",
+      "Boosted engagement and organic following.",
+      "Ran paid ads with measurable ROI."
+    ],
+    services: "Social Media Management",
+    companyName: "ConfidoAi",
+    websiteUrl: "https://scrido.com/",
+    country: "Ahmedabad"
   },
   {
     id: 4,
-    name: "The Scrido – Content Engine",
-    result: "From 0 → 25k monthly readers",
+    name: "ConfidoAi – Social Media Growth",
     summary:
-      "Editorial calendar, contributor playbook, and programmatic pages for FAQs and comparisons.",
-  },
+      "Managed brand presence and growth for AI-driven solutions company.",
+    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzenlect.383bebd7.png&w=3840&q=75",
+    modalDetails: [
+      "Planned and executed social media campaigns.",
+      "Designed creatives aligned with brand identity.",
+      "Boosted engagement and organic following.",
+      "Ran paid ads with measurable ROI."
+    ],
+    services: "Social Media Management",
+    companyName: "ConfidoAi",
+    websiteUrl: "https://scrido.com/",
+    country: "Ahmedabad"
+  }
 ];
 
 const SKILLS = [
@@ -125,8 +167,10 @@ const SKILLS = [
   { name: "MERN", icon: FileJson2 },
   { name: "SMM", icon: Instagram },
   { name: "Canva", icon: Layers },
+  { name: "AI Tools", icon: BrainCircuit },
   { name: "Meta Ads", icon: Megaphone },
   { name: "Google Ads", icon: LineChart },
+  { name: "Data Studio", icon: DatabaseZap },
   { name: "Landing Pages", icon: Globe },
   { name: "Analytics", icon: LineChart },
   { name: "GA4 & GTM", icon: BarChart3 },
@@ -298,6 +342,7 @@ export default function DigitalMarketerPortfolio() {
         >
           Recent Work
         </motion.h2>
+
         <div className="grid md:grid-cols-2 gap-6">
           {PROJECTS.map((p, idx) => (
             <motion.div
@@ -308,18 +353,30 @@ export default function DigitalMarketerPortfolio() {
               transition={{ delay: idx * 0.05 }}
             >
               <ShineCard>
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <h3 className="text-lg font-semibold">{p.name}</h3>
-                    <p className="mt-1 text-emerald-300/90 font-medium">{p.result}</p>
-                    <p className="mt-2 text-white/80 text-sm">{p.summary}</p>
+                <div>
+                  {p.image && (
+                    <div className="relative mb-4 w-full overflow-hidden rounded-xl border border-white/10 shadow-md group">
+                      <img
+                        src={p.image}
+                        alt={p.name}
+                        className="w-full transition-transform duration-300 group-hover:scale-105"
+                      />
+                      {/* Gradient overlay on hover */}
+                      <div className="absolute bottom-0 left-0 w-full h-20 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    </div>
+                  )}
+                  <div className="flex items-start justify-between gap-4">
+                    <div>
+                      <h3 className="text-lg font-semibold">{p.name}</h3>
+                      <p className="mt-2 text-white/80 text-sm">{p.summary}</p>
+                    </div>
+                    <button
+                      onClick={() => setProjectOpen(p)}
+                      className="h-10 rounded-xl border border-white/15 bg-white/5 px-4 text-sm hover:bg-white/10 transition-colors duration-300"
+                    >
+                      What I did
+                    </button>
                   </div>
-                  <button
-                    onClick={() => setProjectOpen(p)}
-                    className="h-10 rounded-xl border border-white/15 bg-white/5 px-4 text-sm hover:bg-white/10"
-                  >
-                    What I did
-                  </button>
                 </div>
               </ShineCard>
             </motion.div>
@@ -361,62 +418,7 @@ export default function DigitalMarketerPortfolio() {
       </Section>
 
       {/* Testimonials */}
-      <Section id="testimonials" className="container mx-auto px-4">
-        <motion.h2
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-3xl md:text-4xl font-semibold mb-8"
-        >
-          Client Testimonials
-        </motion.h2>
-        {/* <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {TESTIMONIALS.slice(0, 4).map((t, i) => (
-            <motion.div
-              key={t.name}
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-            >
-              <ShineCard>
-                <div className="flex items-center gap-3 text-amber-300">
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                </div>
-                <p className="mt-3 text-white/90">“{t.quote}”</p>
-                <p className="mt-4 text-sm text-white/70">{t.name} · {t.role}</p>
-              </ShineCard>
-            </motion.div>
-          ))}
-        </div> */}
-
-        {/* Smooth auto-scroll strip for 2 more testimonials */}
-        <div className="relative mt-8 overflow-hidden">
-          <div
-            className="flex gap-6 will-change-transform"
-            style={{ transform: `translateX(${stripOffset}px)` }}
-          >
-            {[...stripItems, ...stripItems, ...stripItems].map((t, idx) => (
-              <ShineCard key={`${t.name}-${idx}`} className="min-w-[320px]">
-                <p className="text-white/90">“{t.quote}”</p>
-                <p className="mt-3 text-sm text-white/70">{t.name} · {t.role}</p>
-                <br></br>
-                <div className="flex items-center gap-3 text-amber-300">
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                  <Star className="w-4 h-4 fill-current" />
-                </div>
-              </ShineCard>
-            ))}
-          </div>
-        </div>
-      </Section>
+      <Testimonials stripItems={TESTIMONIALS}/>
 
       {/* Awards & Stats */}
       <Section id="highlights" className="container mx-auto px-4">
@@ -472,14 +474,41 @@ export default function DigitalMarketerPortfolio() {
         onClose={() => setProjectOpen(null)}
         title={projectOpen?.name}
       >
-        <p className="text-emerald-300 font-medium">{projectOpen?.result}</p>
         <p className="mt-3 text-white/80">{projectOpen?.summary}</p>
-        <ul className="mt-4 list-disc pl-5 text-white/80 space-y-2">
-          <li>Research: ICP, offers, and channel fit.</li>
-          <li>Build: tracking, landing pages, and creatives.</li>
-          <li>Run: testing cadence with clear stop/start rules.</li>
-          <li>Scale: bid strategies, budget allocation, and QA.</li>
-        </ul>
+        {projectOpen?.services && (
+          <div className="mt-5 text-sm text-white/70 space-y-3">
+            <p className="font-semibold">
+              <span className="font-semibold">Services:</span>{" "}
+              {projectOpen.services}
+            </p>
+            <p className="">
+              <span className="font-semibold">Company:</span>{" "}
+              {projectOpen.companyName}
+            </p>
+            <p className="">
+              <span className="font-semibold">Website:</span>{" "}
+              <a
+                href={projectOpen.websiteUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-emerald-300 hover:underline"
+              >
+                {projectOpen.websiteUrl}
+              </a>
+            </p>
+            <p className="">
+              <span className="font-semibold">Country / Place:</span>{" "}
+              {projectOpen.country}
+            </p>
+          </div>
+        )}
+        {projectOpen?.modalDetails && (
+          <ul className="mt-4 list-disc pl-5 text-white/80 space-y-2">
+            {projectOpen.modalDetails.map((d, i) => (
+              <li key={i}>{d}</li>
+            ))}
+          </ul>
+        )}
       </Modal>
     </div>
   );
@@ -551,7 +580,7 @@ function Hero() {
           </div>
         </motion.div>
 
-        {/* Fancy banner visual */}
+        {/* Fancy banner visual 
         <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -570,7 +599,13 @@ function Hero() {
             <Badge label="Organic" className="top-2 -left-3" />
             <Badge label="Paid" className="bottom-2 -right-3" />
           </div>
-        </motion.div>
+        </motion.div>  */}
+
+        <img
+          src="/portfolio-banner.png"
+          alt="Digital Marketing Mascot"
+          className="mx-auto"
+        />
       </div>
     </Section>
   );
@@ -583,6 +618,83 @@ function Badge({ label, className = "" }) {
         {label}
       </div>
     </div>
+  );
+}
+
+export function Testimonials({ stripItems }) {
+  const scrollRef = useRef(null);
+  const isHovering = useRef(false);
+
+  useEffect(() => {
+    let animationFrame;
+
+    const scroll = () => {
+      if (!scrollRef.current || isHovering.current) return;
+
+      // Auto scroll speed
+      scrollRef.current.scrollLeft += 0.5;
+
+      // Reset when half scrolled (because we duplicated list)
+      if (scrollRef.current.scrollLeft >= scrollRef.current.scrollWidth / 2) {
+        scrollRef.current.scrollLeft = 0;
+      }
+
+      animationFrame = requestAnimationFrame(scroll);
+    };
+
+    animationFrame = requestAnimationFrame(scroll);
+
+    return () => cancelAnimationFrame(animationFrame);
+  }, []);
+
+  return (
+    <section id="testimonials" className="container mx-auto px-4">
+      <motion.h2
+        initial={{ opacity: 0, y: 10 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        className="text-3xl md:text-4xl font-semibold mb-8"
+      >
+        Client Testimonials
+      </motion.h2>
+
+      <div
+        ref={scrollRef}
+        className="relative mt-8 overflow-x-auto whitespace-nowrap scrollbar-hide cursor-grab active:cursor-grabbing"
+        onMouseEnter={() => (isHovering.current = true)}
+        onMouseLeave={() => (isHovering.current = false)}
+      >
+        {[...stripItems, ...stripItems].map((t, idx) => (
+          <div
+            key={`${t.name}-${idx}`}
+            className="inline-block align-top min-w-[320px] bg-white/5 rounded-2xl p-5 shadow-lg mx-3"
+          >
+            <p className="text-white/90">“{t.quote}”</p>
+            <p className="mt-3 text-sm text-white/70">
+              {t.name} · {t.role}
+            </p>
+            <br />
+            <div className="flex items-center gap-3 text-amber-300">
+              <Star className="w-4 h-4 fill-current" />
+              <Star className="w-4 h-4 fill-current" />
+              <Star className="w-4 h-4 fill-current" />
+              <Star className="w-4 h-4 fill-current" />
+              <Star className="w-4 h-4 fill-current" />
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <style jsx>{`
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
+    </section>
   );
 }
 
