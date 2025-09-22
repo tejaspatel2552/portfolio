@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState, useRef  } from "react";
+import React, { useEffect, useMemo, useState, useRef } from "react";
 import Turnstile from "react-turnstile";
 import { motion } from "framer-motion";
 import {
@@ -17,6 +17,7 @@ import {
   Rocket,
   Sparkles,
   Star,
+  StarHalf,
   Globe,
   Mail,
   Phone,
@@ -92,71 +93,37 @@ const SERVICES = [
 const PROJECTS = [
   {
     id: 1,
-    name: "ConfidoAi – Social Media Growth",
+    name: "Xtreme Colors",
     summary:
-      "Managed brand presence and growth for AI-driven solutions company.",
-    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzenlect.383bebd7.png&w=3840&q=75",
+      "Managed digital growth for precision-driven fandeck and color tools company.",
+    image: "/xtremecolors.png",
     modalDetails: [
-      "Planned and executed social media campaigns.",
-      "Designed creatives aligned with brand identity.",
-      "Boosted engagement and organic following.",
-      "Ran paid ads with measurable ROI."
+      "Managed SEO strategies to improve search rankings.",
+      "Maintained and optimized company website performance.",
+      "Created targeted content for higher visibility and reach.",
+      "Analyzed insights to refine marketing and growth strategies."
     ],
-    services: "Social Media Management",
-    companyName: "ConfidoAi",
-    websiteUrl: "https://scrido.com/",
-    country: "Ahmedabad"
+    services: "SEO • Social Media Management",
+    companyName: "Xtreme Colors",
+    websiteUrl: "https://xtremecolors.co.in/",
+    country: "Ahmedabad, India"
   },
   {
     id: 2,
-    name: "ConfidoAi – Social Media Growth",
+    name: "LensLove",
     summary:
-      "Managed brand presence and growth for AI-driven solutions company.",
-    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FUsability.58d05f47.png&w=3840&q=75",
+      "Developed a modern React JS project, user-friendly interface with best UI practices.",
+    image: "/lenslove.png",
     modalDetails: [
-      "Planned and executed social media campaigns.",
-      "Designed creatives aligned with brand identity.",
-      "Boosted engagement and organic following.",
-      "Ran paid ads with measurable ROI."
+      "Designed intuitive, responsive layouts for seamless user experience.",
+      "Implemented reusable components for scalability and efficiency.",
+      "Ensured pixel-perfect UI with attention to detail in styling.",
+      "Optimized performance for fast rendering and smooth interactions."
     ],
-    services: "Social Media Management",
-    companyName: "ConfidoAi",
-    websiteUrl: "https://scrido.com/",
-    country: "Ahmedabad"
-  },
-  {
-    id: 3,
-    name: "ConfidoAi – Social Media Growth",
-    summary:
-      "Managed brand presence and growth for AI-driven solutions company.",
-    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2FUsability.58d05f47.png&w=3840&q=75",
-    modalDetails: [
-      "Planned and executed social media campaigns.",
-      "Designed creatives aligned with brand identity.",
-      "Boosted engagement and organic following.",
-      "Ran paid ads with measurable ROI."
-    ],
-    services: "Social Media Management",
-    companyName: "ConfidoAi",
-    websiteUrl: "https://scrido.com/",
-    country: "Ahmedabad"
-  },
-  {
-    id: 4,
-    name: "ConfidoAi – Social Media Growth",
-    summary:
-      "Managed brand presence and growth for AI-driven solutions company.",
-    image: "https://tejaspatel.vercel.app/_next/image?url=%2F_next%2Fstatic%2Fmedia%2Fzenlect.383bebd7.png&w=3840&q=75",
-    modalDetails: [
-      "Planned and executed social media campaigns.",
-      "Designed creatives aligned with brand identity.",
-      "Boosted engagement and organic following.",
-      "Ran paid ads with measurable ROI."
-    ],
-    services: "Social Media Management",
-    companyName: "ConfidoAi",
-    websiteUrl: "https://scrido.com/",
-    country: "Ahmedabad"
+    services: "Website Development Practise",
+    companyName: "LensLove",
+    websiteUrl: "https://github.com/tejaspatel2552/lenslove",
+    country: "Ahmedabad, India"
   }
 ];
 
@@ -183,40 +150,25 @@ const SKILLS = [
 
 const TESTIMONIALS = [
   {
-    name: "Harsh S.",
-    role: "Founder, D2D Solutions",
+    name: "Ayesha I Penchi",
+    role: "Manager, Xtreme Colors",
     quote:
-      "Brought structure to our marketing. Clear dashboards, sharp copy, and results we can bank on.",
+      "Tejas has been excellent support for Xtreme Colors, managing SEO, social media, and website maintenance with creativity and professionalism. His efforts enhanced our brand visibility.",
+    rating: 5,
   },
   {
-    name: "Anita P.",
-    role: "CMO, SaaS Startup",
+    name: "Meet P.",
+    role: "CEO, Scrido",
     quote:
-      "Our CAC dropped in 6 weeks without cutting scale. The testing cadence just works.",
+      "Tejas delivered exceptional poster designs through Scrido, blending creativity with detail. His visuals aligned with our brand and boosted campaign appeal.",
+    rating: 4.5,
   },
   {
     name: "Rahul K.",
     role: "Head of Growth, eCom",
     quote:
       "From creative angles to tracking, everything clicked. Weekly sprints kept us moving.",
-  },
-  {
-    name: "Maya T.",
-    role: "Marketing Lead, Fintech",
-    quote:
-      "We finally trust our data. GA4 + server events unlocked better optimization.",
-  },
-  {
-    name: "Gaurav M.",
-    role: "Founder, D2C",
-    quote:
-      "Tejas reshaped our landing pages and email flows. Revenue up and churn down.",
-  },
-  {
-    name: "Isha R.",
-    role: "Ops, B2B Services",
-    quote:
-      "Professional, proactive, and kind. Communication is A+. Highly recommended.",
+    rating: 5,
   },
 ];
 
@@ -266,17 +218,7 @@ const Modal = ({ open, onClose, title, children }) => {
 export default function DigitalMarketerPortfolio() {
   const [serviceOpen, setServiceOpen] = useState(null);
   const [projectOpen, setProjectOpen] = useState(null);
-
-  // Auto-scroll state for testimonial strip
-  const [stripOffset, setStripOffset] = useState(0);
-  const stripItems = useMemo(() => TESTIMONIALS.slice(4), []); // last 2 items
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setStripOffset((v) => (v - 1) % 10000);
-    }, 20);
-    return () => clearInterval(id);
-  }, []);
+  const stripItems = useMemo(() => TESTIMONIALS, []);
 
   return (
     <div className="min-h-screen text-white bg-gradient-to-br from-neutral-900 via-neutral-950 to-black">
@@ -418,7 +360,7 @@ export default function DigitalMarketerPortfolio() {
       </Section>
 
       {/* Testimonials */}
-      <Testimonials stripItems={TESTIMONIALS}/>
+      <Testimonials stripItems={stripItems} />
 
       {/* Awards & Stats */}
       <Section id="highlights" className="container mx-auto px-4">
@@ -430,6 +372,11 @@ export default function DigitalMarketerPortfolio() {
               <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> Grow 15+ clients with organic and  paid strategies</li>
               <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> Successfully managed ₹10Lakh+ in ad spends</li>
               <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> Skilled in social media post & poster designs</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> +150% SEO growth across client websites</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> 2.0x ROAS achieved in paid campaigns</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> 35% CPL reduction with funnel optimization</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> +21% revenue growth via email marketing</li>
+              <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> End-to-end SEO, Ads & Social Media expertise</li>
               <li className="flex items-center gap-2"><CheckCircle2 className="w-4 h-4" /> HubSpot Digital Marketing Certified</li>
             </ul>
           </ShineCard>
@@ -524,19 +471,39 @@ function Navbar() {
     { href: "#testimonials", label: "Testimonials" },
   ];
   return (
-    <div className="sticky top-0 z-40 backdrop-blur supports-[backdrop-filter]:bg-white/5 bg-white/0 border-b border-white/10">
+    <div className="sticky top-0 z-40 bg-white/5 backdrop-blur-lg border-b border-white/10">
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        <a href="#" className="font-semibold tracking-tight flex items-center gap-2">
-          <Sparkles className="w-5 h-5" /> Tejas Patel
+        <a href="#" className="font-bold tracking-tight flex items-center gap-2">
+          <Sparkles className="w-5 h-5" />
+          <span
+            className="bg-clip-text text-transparent bg-gradient-to-r from-emerald-300 via-cyan-300 to-indigo-300 font-extrabold"
+            style={{ fontSize: "20px", fontWeight: "600" }}
+          >
+            Tejas Patel
+          </span>
         </a>
-        <nav className="hidden md:flex items-center gap-6 text-sm">
+        <nav className="hidden md:flex items-center gap-6 text-lg">
           {navItems.map((n) => (
-            <a key={n.href} href={n.href} className="text-white/80 hover:text-white">
+            <a
+              key={n.href}
+              href={n.href}
+              className="text-white/80 hover:text-emerald-300 transition-colors"
+              style={{ fontSize: "16px", fontWeight: "500" }}
+            >
               {n.label}
             </a>
           ))}
-          <a href="#contact" className="rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-sm hover:bg-white/15 inline-flex items-center gap-2">
-            <Mail className="w-4 h-4" /> Contact Me
+          <a
+            href="#contact"
+            className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 hover:bg-white/10 transition inline-flex items-center justify-center gap-2"
+          >
+            <Mail className="w-4 h-4" />
+            <span
+              className="bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-pink-300"
+              style={{ fontSize: "16px", fontWeight: "600" }}
+            >
+              Contact Me
+            </span>
           </a>
         </nav>
         <div className="md:hidden">
@@ -547,7 +514,12 @@ function Navbar() {
         <div className="md:hidden border-t border-white/10">
           <div className="container mx-auto px-4 py-3 flex flex-col gap-2">
             {navItems.map((n) => (
-              <a key={n.href} href={n.href} className="text-white/80 hover:text-white" onClick={() => setOpen(false)}>
+              <a
+                key={n.href}
+                href={n.href}
+                className="text-white/80 hover:text-emerald-300 transition-colors"
+                style={{ fontSize: "16px", fontWeight: "600" }}
+              >
                 {n.label}
               </a>
             ))}
@@ -621,31 +593,179 @@ function Badge({ label, className = "" }) {
   );
 }
 
-export function Testimonials({ stripItems }) {
+{/* Testimonials */ }
+function StarRating({ rating, max = 5 }) {
+  const fullStars = Math.floor(rating);
+  const hasHalf = rating % 1 >= 0.5;
+  const emptyStars = max - fullStars - (hasHalf ? 1 : 0);
+
+  return (
+    <div className="flex items-center gap-1 text-amber-300">
+      {/* Full Stars */}
+      {[...Array(fullStars)].map((_, i) => (
+        <Star key={`full-${i}`} className="w-4 h-4 fill-current" />
+      ))}
+
+      {/* Half Star */}
+      {hasHalf && <StarHalf className="w-4 h-4 fill-current" />}
+
+      {/* Empty Stars */}
+      {[...Array(emptyStars)].map((_, i) => (
+        <Star key={`empty-${i}`} className="w-4 h-4 stroke-current text-amber-300/40" />
+      ))}
+    </div>
+  );
+}
+
+export function Testimonials({ stripItems = [] }) {
   const scrollRef = useRef(null);
-  const isHovering = useRef(false);
+  const isPaused = useRef(false);
+  const rafRef = useRef(null);
+  const halfWidth = useRef(0);
+  const resumeTimer = useRef(null);
+  const lastTsRef = useRef(null);
 
+  const validNumber = (v) => typeof v === "number" && isFinite(v) && v > 0;
+
+  // measure halfWidth and normalize on resize / load
   useEffect(() => {
-    let animationFrame;
+    const el = scrollRef.current;
+    if (!el) return;
 
-    const scroll = () => {
-      if (!scrollRef.current || isHovering.current) return;
-
-      // Auto scroll speed
-      scrollRef.current.scrollLeft += 0.5;
-
-      // Reset when half scrolled (because we duplicated list)
-      if (scrollRef.current.scrollLeft >= scrollRef.current.scrollWidth / 2) {
-        scrollRef.current.scrollLeft = 0;
+    const update = () => {
+      const sw = el.scrollWidth;
+      if (!validNumber(sw)) {
+        halfWidth.current = 0;
+        return;
       }
-
-      animationFrame = requestAnimationFrame(scroll);
+      halfWidth.current = sw / 3;
+      if (validNumber(halfWidth.current) && el.scrollLeft >= halfWidth.current) {
+        el.scrollLeft = el.scrollLeft % halfWidth.current;
+      }
     };
 
-    animationFrame = requestAnimationFrame(scroll);
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
 
-    return () => cancelAnimationFrame(animationFrame);
+    window.addEventListener("load", update);
+    window.addEventListener("orientationchange", update);
+
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("load", update);
+      window.removeEventListener("orientationchange", update);
+    };
+  }, [stripItems]);
+
+  // RAF loop: time-based movement (px per second)
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el || !Array.isArray(stripItems) || stripItems.length === 0) return;
+
+    const speedPxPerSec = 36; // tune this for desired speed
+    const step = (ts) => {
+      // schedule next frame
+      rafRef.current = requestAnimationFrame(step);
+
+      if (!validNumber(halfWidth.current)) return;
+      if (isPaused.current) {
+        lastTsRef.current = ts; // update time baseline when paused
+        return;
+      }
+
+      if (!lastTsRef.current) {
+        lastTsRef.current = ts;
+        return;
+      }
+
+      let dt = ts - lastTsRef.current;
+
+      // Reset baseline if dt is too large (tab was inactive) or negative
+      if (dt > 200 || dt < 0) {
+        lastTsRef.current = ts;
+        return;
+      }
+
+      // Update the timestamp for next frame
+      lastTsRef.current = ts;
+
+      const deltaPx = (speedPxPerSec * dt) / 1000; // px to move this frame
+      const current = el.scrollLeft + deltaPx;
+
+      // Wrap around when reaching halfway point
+      if (current >= halfWidth.current) {
+        el.scrollLeft = current - halfWidth.current;
+      } else {
+        el.scrollLeft = current;
+      }
+    };
+
+    rafRef.current = requestAnimationFrame(step);
+
+    return () => {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      lastTsRef.current = null;
+    };
+  }, [stripItems]);
+
+  // Pause / resume helpers
+  const pause = () => {
+    isPaused.current = true;
+    lastTsRef.current = null; // Reset timestamp on pause
+    if (resumeTimer.current) {
+      clearTimeout(resumeTimer.current);
+      resumeTimer.current = null;
+    }
+  };
+
+  const resumeWithDelay = (ms = 800) => {
+    if (resumeTimer.current) clearTimeout(resumeTimer.current);
+    resumeTimer.current = setTimeout(() => {
+      isPaused.current = false;
+      lastTsRef.current = null; // Reset timestamp on resume
+      resumeTimer.current = null;
+    }, ms);
+  };
+
+  const handlePointerEnter = () => pause();
+  const handlePointerLeave = () => resumeWithDelay(300);
+  const handlePointerDown = () => pause();
+  const handlePointerUp = () => resumeWithDelay(900);
+
+  // Pause while tab hidden (and resume shortly after visible)
+  useEffect(() => {
+    const onVis = () => {
+      if (document.hidden) {
+        isPaused.current = true;
+        lastTsRef.current = null; // Reset timestamp when tab becomes hidden
+      } else {
+        // Resume after a short delay when tab becomes visible
+        setTimeout(() => {
+          isPaused.current = false;
+          lastTsRef.current = null; // Reset timestamp for fresh start
+        }, 120);
+      }
+    };
+    document.addEventListener("visibilitychange", onVis);
+    return () => document.removeEventListener("visibilitychange", onVis);
   }, []);
+
+  // Cleanup timers on unmount
+  useEffect(() => {
+    return () => {
+      if (resumeTimer.current) {
+        clearTimeout(resumeTimer.current);
+      }
+    };
+  }, []);
+
+  if (!Array.isArray(stripItems) || stripItems.length === 0) return null;
+
+  const items = [...stripItems, ...stripItems, ...stripItems];
 
   return (
     <section id="testimonials" className="container mx-auto px-4">
@@ -661,38 +781,38 @@ export function Testimonials({ stripItems }) {
       <div
         ref={scrollRef}
         className="relative mt-8 overflow-x-auto whitespace-nowrap scrollbar-hide cursor-grab active:cursor-grabbing"
-        onMouseEnter={() => (isHovering.current = true)}
-        onMouseLeave={() => (isHovering.current = false)}
+        onPointerEnter={handlePointerEnter}
+        onPointerLeave={handlePointerLeave}
+        onPointerDown={handlePointerDown}
+        onPointerUp={handlePointerUp}
+        onTouchStart={handlePointerDown}
+        onTouchEnd={handlePointerUp}
+        style={{ scrollBehavior: "auto" }}
       >
-        {[...stripItems, ...stripItems].map((t, idx) => (
+        {items.map((t, idx) => (
           <div
-            key={`${t.name}-${idx}`}
-            className="inline-block align-top min-w-[320px] bg-white/5 rounded-2xl p-5 shadow-lg mx-3"
+            key={`testimonial-${idx}`}
+            className="inline-flex flex-col w-[320px] min-h-[250px] bg-white/5 rounded-2xl p-5 shadow-lg mx-3"
+            role="article"
+            aria-label={`Testimonial from ${t.name}`}
           >
-            <p className="text-white/90">“{t.quote}”</p>
-            <p className="mt-3 text-sm text-white/70">
-              {t.name} · {t.role}
+            <p className="text-white/90 whitespace-normal flex-1 overflow-hidden">
+              "{t.quote}"
             </p>
-            <br />
-            <div className="flex items-center gap-3 text-amber-300">
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
-              <Star className="w-4 h-4 fill-current" />
+
+            <div className="mt-3">
+              <p className="text-sm text-white/70">{t.name} · {t.role}</p>
+              <div className="mt-3">
+                <StarRating rating={t.rating} />
+              </div>
             </div>
           </div>
         ))}
       </div>
 
       <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
+        .scrollbar-hide::-webkit-scrollbar { display: none; }
+        .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
       `}</style>
     </section>
   );
@@ -742,7 +862,7 @@ function Footer() {
 
   return (
     <Section id="contact" className="">
-      <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-10">
+      <div className="container mx-auto px-4 grid lg:grid-cols-2 gap-6">
         <ShineCard>
           <h3 className="text-xl font-semibold">Let's work together</h3>
 
@@ -757,7 +877,7 @@ function Footer() {
             <input name="company" placeholder="Company"
               className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-white/30" />
 
-            <textarea name="message" placeholder="Tell me about the project" rows={5}
+            <textarea name="message" placeholder="Tell me about the project" rows={4}
               className="w-full rounded-xl bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-white/30" />
 
             {/* Cloudflare Turnstile CAPTCHA */}
@@ -784,21 +904,55 @@ function Footer() {
 
         </ShineCard>
 
-        <ShineCard>
+        <ShineCard className="flex flex-col h-full">
           <h3 className="text-xl font-semibold">Contact Details</h3>
+
           <ul className="mt-6 space-y-3 text-white/85">
-            <li className="flex items-center gap-3"><Mail className="w-4 h-4" /> tejaspatel2552@gmail.com</li>
-            <li className="flex items-center gap-3"><Phone className="w-4 h-4" /> +91 80008 17805</li>
-            <li className="flex items-center gap-3"><Globe className="w-4 h-4" /> Ahmedabad, India</li>
-            <li className="flex items-center gap-3"><MapPin className="w-4 h-4" /> Open to Bangalore · Pune · Hyd</li>
+            <li className="flex items-center gap-3">
+              <Mail className="w-4 h-4" />
+              <a href="mailto:tejaspatel2552@gmail.com" className="hover:text-emerald-300 transition-colors">
+                tejaspatel2552@gmail.com
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <Phone className="w-4 h-4" />
+              <a href="tel:+918000817805" className="hover:text-emerald-300 transition-colors">
+                +91 80008 17805
+              </a>
+            </li>
+            <li className="flex items-center gap-3">
+              <MapPin className="w-4 h-4" /> Based in Ahmedabad, India · Open to Freelance Work Worldwide
+            </li>
           </ul>
-          <div className="mt-6 flex items-center gap-3">
-            <a href="https://www.linkedin.com/in/tejaspatel2552" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="LinkedIn"><Linkedin className="w-4 h-4" /></a>
-            <a href="https://www.instagram.com/patel.tejas_/" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="Facebook"><Facebook className="w-4 h-4" /></a>
-            <a href="https://www.instagram.com/patel.tejas_/" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="Instagram"><Instagram className="w-4 h-4" /></a>
+
+          {/* About Me */}
+          <p className="mt-6 text-sm text-white/70 leading-relaxed">
+            Passionate digital marketer helping brands grow with a mix of organic and paid
+            strategies. Always curious, data-driven, and focused on delivering results that
+            matter. With 2+ years of hands-on experience in SEO, social media, ads, and
+            website development, I blend creativity with proven strategies to deliver
+            measurable business growth worldwide.
+          </p>
+
+          {/* Social icons pinned at bottom */}
+          <div className="mt-auto pt-6 flex flex-wrap items-center gap-3">
+            <a href="https://www.linkedin.com/in/tejaspatel2552" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="LinkedIn">
+              <Linkedin className="w-4 h-4" />
+            </a>
+            <a href="https://www.instagram.com/patel.tejas_/" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="Instagram">
+              <Instagram className="w-4 h-4" />
+            </a>
+            <a href="https://www.facebook.com/" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="Facebook">
+              <Facebook className="w-4 h-4" />
+            </a>
+            <a href="/Tejas-Patel-CV.pdf" download className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 hover:bg-white/10 inline-flex items-center gap-2 text-sm">
+              <FileJson2 className="w-4 h-4" />
+              Download CV
+            </a>
           </div>
         </ShineCard>
-      </div>
+
+      </div >
       <div className="container mx-auto px-4 mt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-white/60">
         <p>© {new Date().getFullYear()} Tejas Patel. All rights reserved.</p>
         <div className="flex items-center gap-3">
@@ -808,7 +962,7 @@ function Footer() {
           <a href="#testimonials" className="hover:text-white">Testimonials</a>
         </div>
       </div>
-    </Section>
+    </Section >
   );
 }
 
