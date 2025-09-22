@@ -942,10 +942,10 @@ function Footer() {
             <a href="https://www.instagram.com/patel.tejas_/" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="Instagram">
               <Instagram className="w-4 h-4" />
             </a>
-            <a href="https://www.facebook.com/" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="Facebook">
+            <a href="https://www.facebook.com/patel.tejas55" className="rounded-xl border border-white/15 bg-white/5 p-2 hover:bg-white/10" aria-label="Facebook">
               <Facebook className="w-4 h-4" />
             </a>
-            <a href="/Tejas-Patel-CV.pdf" download className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 hover:bg-white/10 inline-flex items-center gap-2 text-sm">
+            <a href="https://drive.google.com/file/d/1Qs5jN5GEtdaPDLAer8lmGcnON3Dq-uhn/view?usp=drive_link" download className="rounded-xl border border-white/15 bg-white/5 px-4 py-2 hover:bg-white/10 inline-flex items-center gap-2 text-sm">
               <FileJson2 className="w-4 h-4" />
               Download CV
             </a>
